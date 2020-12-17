@@ -58,9 +58,7 @@ public class FileTypeAdapter extends RecyclerView.Adapter<FileTypeAdapter.vH> {
 
                 }
             });
-
-        }
-            if(filetype.equals(Params_Constants.SAVE_FOLDER_NAME)) {
+            
                 if (file.getFileUri().toString().endsWith(".mp4"))
                     holder.filename.setText("Video");
                 else
