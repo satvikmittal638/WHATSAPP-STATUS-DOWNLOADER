@@ -5,14 +5,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000"
     tools:context=".Status_Preview">
 
 <com.github.chrisbanes.photoview.PhotoView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:src="#DD9898"
+    android:src="#000"
     android:id="@+id/image_prev"
     />
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,6 +51,8 @@
             android:id="@+id/close_btn"/>
 
     </RelativeLayout>
+
+
 
 
 </RelativeLayout>

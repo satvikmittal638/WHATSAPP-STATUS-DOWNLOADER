@@ -3,16 +3,21 @@ package com.example.whatsappstatusdownloader;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 
 public class Status_Preview extends AppCompatActivity {
 ImageView prev,share,play,close;
+VideoView videoView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +28,7 @@ ImageView prev,share,play,close;
         play=findViewById(R.id.play_btn);
         share=findViewById(R.id.share_btn);
         close=findViewById(R.id.close_btn);
+        videoView=findViewById(R.id.videoView);
 
         Intent intent=getIntent();
         Uri uri= Uri.parse((intent.getStringExtra("uri")));
@@ -53,10 +59,21 @@ ImageView prev,share,play,close;
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent playvid = new Intent(Intent.ACTION_VIEW);
-                playvid.setDataAndType(uri, "video/*");
-                playvid.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                startActivity(playvid);
+                prev.setVisibility(View.INVISIBLE);
+                videoView.setVisibility(View.VISIBLE);
+                videoView.setVideoURI(uri);
+                Log.d("video","uri inserted vv");
+
+                MediaController mediaController=new MediaController(Status_Preview.this);
+                mediaController.setAnchorView(videoView);
+                videoView.setMediaController(mediaController);
+                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mediaPlayer) {
+                        mediaPlayer.start();
+                    }
+                });
+                play.setVisibility(View.INVISIBLE);
             }
         });
 
