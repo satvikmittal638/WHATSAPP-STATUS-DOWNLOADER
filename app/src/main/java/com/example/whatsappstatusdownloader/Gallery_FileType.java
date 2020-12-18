@@ -19,6 +19,8 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -66,6 +68,7 @@ private String filetype;
         rec_forAllFiles.setAdapter(fileTypeAdapter);
 
     }
+
 
     private ArrayList<StoryModel> getArrayListOfTheData() {
         ArrayList<StoryModel> filesList=new ArrayList<>();

@@ -1,6 +1,9 @@
 package com.example.whatsappstatusdownloader;
 
+import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
@@ -14,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -47,13 +51,18 @@ public class FileTypeAdapter extends RecyclerView.Adapter<FileTypeAdapter.vH> {
     @Override
     public void onBindViewHolder(@NonNull vH holder, int position) {
         StoryModel file=listOfData.get(position);
-        if(!(filetype.equals("Documents"))) {
+        if(filetype.equals("Images")||filetype.equals("Video")) {
+            holder.filename.setText(file.getFilename());
             Glide.with(holder.del.getContext())
                     .load(file.getFileUri())
                     .into(holder.filetype_prev);
         }
 
-        if(filetype.equals(Params_Constants.SAVE_FOLDER_NAME)) {
+        else if(filetype.equals(Params_Constants.SAVE_FOLDER_NAME)) {
+
+            Glide.with(holder.del.getContext())
+                    .load(file.getFileUri())
+                    .into(holder.filetype_prev);
 
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -71,49 +80,87 @@ public class FileTypeAdapter extends RecyclerView.Adapter<FileTypeAdapter.vH> {
                     else
                         holder.filename.setText("Image");
 
-            } else {
+            }
+
+        //now works fine
+        else  {
 
                 holder.filename.setText(file.getFilename());
 
-
-                if(file.getFileUri().toString().endsWith(".pdf")) {
+            if(filetype.equals("Documents"))
+                {
+                    if(file.getFileUri().toString().endsWith(".pdf")) {
                     holder.filetype_prev.setImageResource(R.drawable.pdf);
                     Log.d("fdb",".pdf found");
                 }
 
-                else if(file.getFileUri().toString().endsWith(".docx")) {
+                    else if(file.getFileUri().toString().endsWith(".docx")) {
                     holder.filetype_prev.setImageResource(R.drawable.docx);
                     Log.d("fdb",".docx found");
                 }
 
-                else if(file.getFileUri().toString().endsWith(".xlsx")) {
+                    else if(file.getFileUri().toString().endsWith(".xlsx")) {
                     holder.filetype_prev.setImageResource(R.drawable.xlsx);
                     Log.d("fdb",".xlsx found");
                 }
 
-                else if(file.getFileUri().toString().endsWith(".pptx")) {
+                    else if(file.getFileUri().toString().endsWith(".pptx")) {
                     holder.filetype_prev.setImageResource(R.drawable.pptx);
                     Log.d("fdb",".pptx found");
                 }
 
-                else if(file.getFileUri().toString().endsWith(".txt")) {
+                    else if(file.getFileUri().toString().endsWith(".txt")) {
                     holder.filetype_prev.setImageResource(R.drawable.txt);
                     Log.d("fdb",".txt found");
                 }
 
-                else{
-                    holder.filetype_prev.setImageResource(R.drawable.doc);
-                    Log.d("fdb","no file found");
-                }
+//                  else{
+//                      holder.filetype_prev.setImageResource(R.drawable.doc);
+//                      Log.d("fdb","no file found");
+//                }
 
+            }
 
-
+            else
+                holder.filetype_prev.setImageResource(R.drawable.audio);
 
 
         }
 
+        holder.del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                AlertDialog.Builder dialogBuilder=new AlertDialog.Builder(holder.del.getContext());
 
+                dialogBuilder.setMessage("Do you want to delete this file ?")
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Do nothing
+                            }
+                        })
+
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                File fileToDelete=new File(file.getPath());
+                                if(fileToDelete.delete()) {
+                                    //some prbls here
+                                    listOfData.remove(position);
+//                                  notifyItemRemoved(position);
+                                    notifyDataSetChanged();
+                                    Toast.makeText(holder.del.getContext(), "File deleted successfully", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
+                AlertDialog showDialog=dialogBuilder.create();
+                showDialog.setTitle("WhatsApp Status Downloader");
+                showDialog.show();
+
+            }
+        });
 
         }
 
