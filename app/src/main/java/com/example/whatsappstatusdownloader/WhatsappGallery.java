@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.WindowManager;
 
+import com.example.whatsappstatusdownloader.Adapters.WA_GalleryAdapter;
+
 import java.util.ArrayList;
 
 public class WhatsappGallery extends AppCompatActivity {

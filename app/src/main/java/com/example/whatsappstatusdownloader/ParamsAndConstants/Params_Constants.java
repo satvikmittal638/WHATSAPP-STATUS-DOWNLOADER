@@ -1,4 +1,4 @@
-package com.example.whatsappstatusdownloader;
+package com.example.whatsappstatusdownloader.ParamsAndConstants;
 
 public class Params_Constants {
     public static final String FOLDER_NAME="/Whatsapp/";

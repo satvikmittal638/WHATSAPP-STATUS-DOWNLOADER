@@ -1,4 +1,4 @@
-package com.example.whatsappstatusdownloader;
+package com.example.whatsappstatusdownloader.Model;
 
 import android.net.Uri;
 

@@ -13,6 +13,9 @@ import android.os.Handler;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.example.whatsappstatusdownloader.Model.StoryModel;
+import com.example.whatsappstatusdownloader.ParamsAndConstants.Params_Constants;
+import com.example.whatsappstatusdownloader.Adapters.RecyclerViewAdapter;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -87,7 +90,7 @@ private ArrayList<StoryModel> filesList=new ArrayList<>();
     }
     private ArrayList<StoryModel> getArrayListOfTheData() {
         StoryModel model;
-        String targetPath= Environment.getExternalStorageDirectory().getAbsolutePath()+Params_Constants.FOLDER_NAME+"Media/.Statuses";
+        String targetPath= Environment.getExternalStorageDirectory().getAbsolutePath()+ Params_Constants.FOLDER_NAME+"Media/.Statuses";
         File targetDirectory=new File(targetPath);
 
         files=targetDirectory.listFiles();

@@ -1,4 +1,4 @@
-package com.example.whatsappstatusdownloader;
+package com.example.whatsappstatusdownloader.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,10 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.whatsappstatusdownloader.ParamsAndConstants.Params_Constants;
+import com.example.whatsappstatusdownloader.R;
+import com.example.whatsappstatusdownloader.Status_Preview;
+import com.example.whatsappstatusdownloader.Model.StoryModel;
 
 import org.apache.commons.io.FileUtils;
 
@@ -68,7 +72,7 @@ private ArrayList<StoryModel> filesList;
                 final File init_file=new File(init_path);
 
                 //destination folder for saving whatsApp status
-                String dest_path=Environment.getExternalStorageDirectory().getAbsolutePath()+Params_Constants.SAVE_FOLDER_NAME;
+                String dest_path=Environment.getExternalStorageDirectory().getAbsolutePath()+ Params_Constants.SAVE_FOLDER_NAME;
                 File dest_file=new File(dest_path);
 
                 try {
@@ -103,7 +107,7 @@ private ArrayList<StoryModel> filesList;
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(context,Status_Preview.class);
+                Intent intent=new Intent(context, Status_Preview.class);
                 intent.putExtra("uri",storyModel.getFileUri().toString());
                 context.startActivity(intent);
             }

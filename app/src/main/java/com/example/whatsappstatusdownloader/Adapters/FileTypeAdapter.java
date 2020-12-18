@@ -1,16 +1,9 @@
-package com.example.whatsappstatusdownloader;
+package com.example.whatsappstatusdownloader.Adapters;
 
 import android.app.AlertDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.whatsappstatusdownloader.ParamsAndConstants.Params_Constants;
+import com.example.whatsappstatusdownloader.R;
+import com.example.whatsappstatusdownloader.Status_Preview;
+import com.example.whatsappstatusdownloader.Model.StoryModel;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -68,7 +64,7 @@ public class FileTypeAdapter extends RecyclerView.Adapter<FileTypeAdapter.vH> {
                 @Override
                 public void onClick(View v) {
                     Context context=holder.del.getContext();
-                    Intent intent=new Intent(context,Status_Preview.class);
+                    Intent intent=new Intent(context, Status_Preview.class);
                     intent.putExtra("uri",file.getFileUri().toString());
                     context.startActivity(intent);
 
